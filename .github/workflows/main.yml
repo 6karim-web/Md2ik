@@ -1,8 +1,6 @@
 name: Build APK
 
 on:
-  push:
-    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -17,13 +15,16 @@ jobs:
         with:
           node-version: '18'
       
+      - name: Fix package.json
+        run: |
+          # Supprime les catalog: du package.json
+          sed -i 's/"catalog:"/"*"/g' package.json
+          cat package.json
+      
       - name: Install dependencies
         run: |
-          npm install -g pnpm
-          pnpm install
-      
-      - name: Install EAS CLI
-        run: npm install -g eas-cli
+          npm install --force
+          npm install -g eas-cli
       
       - name: Build APK
         run: eas build --platform android --profile preview --non-interactive

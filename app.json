@@ -7,15 +7,19 @@
     "icon": "./assets/images/icon.png",
     "scheme": "mobile",
     "userInterfaceStyle": "automatic",
+
     "newArchEnabled": false,
+
     "splash": {
       "image": "./assets/images/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+
     "ios": {
       "supportsTablet": false
     },
+
     "android": {
       "package": "com.agenceprospect.app",
       "versionCode": 1,
@@ -24,28 +28,27 @@
         "backgroundColor": "#0EA5E9"
       }
     },
+
     "web": {
       "favicon": "./assets/images/icon.png"
     },
+
     "plugins": [
-      [
-        "expo-router",
-        {
-          "origin": "https://replit.com/"
-        }
-      ],
+      "expo-router",
       "expo-font",
       "expo-web-browser"
     ],
+
     "experiments": {
-      "typedRoutes": true,
-    
+      "typedRoutes": true
     },
+
     "extra": {
       "eas": {
         "projectId": "2042b020-fd56-4963-ba87-08c3c0584bc2"
       }
     },
+
     "owner": "karixs-team"
   }
 }

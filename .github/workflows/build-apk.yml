@@ -28,10 +28,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Bundle JS for Android
-        run: npx expo export --platform android --output-dir dist-android
-
-      - name: Build APK (release, debug-signed)
+      - name: Build APK with Gradle
         working-directory: android
         run: |
           chmod +x gradlew
@@ -39,10 +36,10 @@ jobs:
         env:
           GRADLE_OPTS: -Dorg.gradle.jvmargs=-Xmx4g
 
-      - name: Find APK and create release
+      - name: Collect APK
         run: |
           APK=$(find android/app/build/outputs/apk -name "*.apk" | head -1)
-          echo "Found: $APK"
+          echo "APK: $APK"
           ls -lh "$APK"
           cp "$APK" agenceprospect.apk
 

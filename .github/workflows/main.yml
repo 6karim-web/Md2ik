@@ -16,8 +16,15 @@ jobs:
         with:
           node-version: '18'
       
+      - name: Fix package.json
+        run: |
+          sed -i 's/"catalog:"/"*"/g' package.json
+      
+      - name: Install pnpm
+        run: npm install -g pnpm
+      
       - name: Install dependencies
-        run: npm install --force
+        run: pnpm install --force
       
       - name: Install EAS CLI
         run: npm install -g eas-cli

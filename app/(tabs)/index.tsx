@@ -12,7 +12,7 @@ import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 import { useColors } from "@/hooks/useColors";
-import { useGetLeads, useGetLogs } from "@workspace/api-client-react";
+import { useGetLeads, useGetLogs } from "../../src/api";
 
 interface StatCardProps {
   label: string;

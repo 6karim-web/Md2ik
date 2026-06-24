@@ -26,20 +26,20 @@ jobs:
           java-version: 17
 
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
+        run: npm install --legacy-peer-deps --registry https://registry.npmjs.org
 
       - name: Build APK with Gradle
         working-directory: android
         run: |
           chmod +x gradlew
-          ./gradlew assembleRelease --no-daemon --stacktrace
+          ./gradlew assembleRelease --no-daemon
         env:
           GRADLE_OPTS: -Dorg.gradle.jvmargs=-Xmx4g
 
       - name: Collect APK
         run: |
           APK=$(find android/app/build/outputs/apk -name "*.apk" | head -1)
-          echo "APK found: $APK"
+          echo "APK: $APK"
           ls -lh "$APK"
           cp "$APK" agenceprospect.apk
 
@@ -50,11 +50,11 @@ jobs:
           name: AgenceProspect v1.0.${{ github.run_number }}
           body: |
             ## AgenceProspect Android APK
-            Application de prospection immobilière Mubawab.ma
+            Application de prospection immobiliere Mubawab.ma
 
             ### Installation
-            1. Télécharger le fichier `.apk` ci-dessous
-            2. Activer **Sources inconnues** dans les paramètres Android
+            1. Telecharger le fichier `.apk` ci-dessous
+            2. Activer **Sources inconnues** dans les parametres Android
             3. Ouvrir le fichier pour installer
           files: agenceprospect.apk
         env:

@@ -1,10 +1,6 @@
-name: Build Android APK
+name: Build APK
 
 on:
-  push:
-    branches: [ main, master, develop ]
-  pull_request:
-    branches: [ main, master, develop ]
   workflow_dispatch:
 
 jobs:
@@ -12,32 +8,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '11'
+          java-version: '17'
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '16'
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
-      - name: Install dependencies
+      - name: Build APK
         run: |
-          npm install --force
-          npm install -g expo-cli eas-cli
-
-      - name: Build APK with Expo
-        run: |
-          expo build:android --non-interactive
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
-          path: '*.apk'
+          path: android/app/build/outputs/apk/debug/*.apk
